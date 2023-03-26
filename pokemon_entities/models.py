@@ -10,7 +10,8 @@ class Pokemon(models.Model):
     title_en = models.CharField(max_length=200, blank=True)
     title_jp = models.CharField(max_length=200, blank=True)
     evolution_from = models.ForeignKey(
-        "self", blank=True, null=True, on_delete=models.SET_NULL
+        "self", blank=True, null=True, on_delete=models.SET_NULL,
+        related_name="evolution_to"
     )
 
     def __str__(self):

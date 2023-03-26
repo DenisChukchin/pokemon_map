@@ -67,6 +67,12 @@ def show_pokemon(request, pokemon_id):
             "title_en": pokemons.title_en,
             "title_jp": pokemons.title_jp
         }
+        if pokemons.evolution_from:
+            pokemons_info["previous_evolution"] = {
+                "title_ru": pokemons.evolution_from.title,
+                "pokemon_id": pokemons.evolution_from.id,
+                "img_url": pokemons.evolution_from.image.url
+            }
     except Pokemon.DoesNotExist:
         return HttpResponseNotFound("<h1>Такой покемон не найден</h1>")
 

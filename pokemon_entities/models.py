@@ -24,13 +24,14 @@ class Pokemon(models.Model):
     )
 
     def __str__(self):
-        return f'{self.title}'
+        return self.title
 
 
 class PokemonEntity(models.Model):
     """Характеристика покемона"""
     pokemon = models.ForeignKey(
-        Pokemon, null=True, on_delete=models.CASCADE, verbose_name="Покемон"
+        Pokemon, null=True, on_delete=models.SET_NULL,
+        verbose_name="Покемон", related_name="entities"
     )
     lat = models.FloatField(
         null=True, verbose_name="Широта"
@@ -39,7 +40,7 @@ class PokemonEntity(models.Model):
         null=True, verbose_name="Долгота"
     )
     appeared_at = models.DateTimeField(
-        null=True, verbose_name="Появиться"
+        null=True, verbose_name="Появится"
     )
     disappeared_at = models.DateTimeField(
         null=True, verbose_name="Исчезнет"
@@ -59,3 +60,6 @@ class PokemonEntity(models.Model):
     stamina = models.IntegerField(
         null=True, blank=True, verbose_name="Выносливость"
     )
+
+    def __str__(self):
+        return "{},{}".format(self.pokemon.title, self.level)
